@@ -1,6 +1,6 @@
 # API PROYECTO ANGEL
 
-Una api simple en Python y graphql para poder navegar distinta informacion suministrada por la aplicacion ANGEL.
+FastAPI + GraphQL
 
 ## Instalacion
 
