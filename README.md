@@ -26,5 +26,12 @@ sqlacodegen mysql+pymysql://user:password@host:port/db --outfile models.py
 
 Ese file pegarlo dentro de src/models.
 
+## Correr server
+
+```bash
+py app.py
+```
+Se levanta en port:8000, para cambiar esto editar el file [app.py](https://github.com/parisote/api_angel/blob/develop/app.py)
+
 ## Licencia
 [MIT](https://github.com/parisote/api_angel/blob/develop/LICENSE.md)
