@@ -1,0 +1,10 @@
+starlette==0.13.6
+graphql_core==3.1.3
+uvicorn==0.13.3
+graphene==3.0b7
+pydantic==1.6.1
+SQLAlchemy==1.3.20
+fastapi==0.63.0
+graphene_pydantic==0.2.0
+graphql==0.0.4
+python-dotenv==0.15.0
