@@ -1,5 +1,6 @@
 import graphene
 from fastapi import FastAPI, Response
+from fastapi.responses import RedirectResponse
 from src.customgraphqlapp import CustomGraphQLApp
 from src.schema import Query
 from mimetypes import guess_type
@@ -16,7 +17,7 @@ app.mount("/doc/schema", StaticFiles(directory="doc/schema"), name="doc")
 
 @app.get('/')
 def ping():
-    return {'ping': 'pong'}
+    return RedirectResponse("/doc/schema/index.html")
 
 
 @app.get("/doc/schema/{filename}")
