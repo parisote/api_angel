@@ -8,7 +8,7 @@ Una api simple en Python y graphql para poder navegar distinta informacion sumin
 pip install -r requirements.txt
 ```
 
-##Configuracion de env
+## Configuracion de env
 
 Crear un file .env en el root del proyecto con la variable BASE para la conexion de [sqlalchemy](https://pypi.org/project/SQLAlchemy/)
 
