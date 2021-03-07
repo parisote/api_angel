@@ -33,7 +33,9 @@ class PersonModel(BaseModel):
     second_last_name: str
     second_first_name: str
     sex: str
+    marital_status: str
     birth: date
+    country_birth: Optional[CountryModel]
 
 
 class PersonCredentialModel(BaseModel):
