@@ -4,10 +4,11 @@ from src.serializers import (
     CountryGrapheneModel,
     ProvinceGrapheneModel,
     PersonGrapheneModel,
-    PersonCredentialGrapheneModel
+    PersonCredentialGrapheneModel,
+    PersonGroupMedicalInsuranceGrapheneModel
 )
 
-from src.models.models import Country, Province, Person, PersonCredential, session
+from src.models.models import Country, Province, Person, PersonCredential, PersonGroupMedicalInsurance, session
 
 
 class Query(graphene.ObjectType):
@@ -19,6 +20,8 @@ class Query(graphene.ObjectType):
 
     get_person = graphene.List(PersonGrapheneModel, last_name=graphene.NonNull(graphene.String))
     get_person_by_credential = graphene.List(PersonCredentialGrapheneModel, credential=graphene.NonNull(graphene.String))
+
+    get_person_medical_insurance_by_member_id = graphene.List(PersonGroupMedicalInsuranceGrapheneModel, member=graphene.NonNull(graphene.String))
 
     @staticmethod
     def resolve_get_all_country(parent, info):
@@ -43,3 +46,7 @@ class Query(graphene.ObjectType):
     @staticmethod
     def resolve_get_person_by_credential(parent, info, credential=None):
         return session.query(PersonCredential).filter_by(credential=credential)
+
+    @staticmethod
+    def resolve_get_person_medical_insurance_by_member_id(parent, info, member=None):
+        return session.query(PersonGroupMedicalInsurance).filter_by(member_id=member)

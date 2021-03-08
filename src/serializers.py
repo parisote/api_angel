@@ -26,6 +26,19 @@ class ProvinceModel(BaseModel):
     country: Optional[CountryModel]
 
 
+class GroupsRelationModel(BaseModel):
+    id: int
+    name: str
+
+
+class EntityModel(BaseModel):
+    name: str
+
+
+class EntityMedicalInsurancePlanModel(BaseModel):
+    description: str
+
+
 class PersonModel(BaseModel):
     person_id: int
     last_name: str
@@ -44,6 +57,21 @@ class PersonCredentialModel(BaseModel):
     person: Optional[PersonModel]
 
 
+class PersonXGroupModel(BaseModel):
+    person_id: int
+    person: Optional[PersonModel]
+    state: str
+
+
+class PersonGroupMedicalInsurance(BaseModel):
+    person_x_group: Optional[PersonXGroupModel]
+    medins: Optional[EntityModel]
+    medins_plan: Optional[EntityMedicalInsurancePlanModel]
+    member_id: str
+    state: str
+
+
+# GRAPHENE
 class CountryGrapheneModel(PydanticObjectType):
     class Meta:
         model = CountryModel
@@ -62,3 +90,23 @@ class PersonGrapheneModel(PydanticObjectType):
 class PersonCredentialGrapheneModel(PydanticObjectType):
     class Meta:
         model = PersonCredentialModel
+
+
+class EntityGrapheneModel(PydanticObjectType):
+    class Meta:
+        model = EntityModel
+
+
+class EntityMedicalInsurancePlanGrapheneModel(PydanticObjectType):
+    class Meta:
+        model = EntityMedicalInsurancePlanModel
+
+
+class PersonXGroupGrapheneModel(PydanticObjectType):
+    class Meta:
+        model = PersonXGroupModel
+
+
+class PersonGroupMedicalInsuranceGrapheneModel(PydanticObjectType):
+    class Meta:
+        model = PersonGroupMedicalInsurance
