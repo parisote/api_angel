@@ -2,17 +2,6 @@ from typing import Optional
 from graphene_pydantic import PydanticObjectType
 from pydantic import BaseModel
 from datetime import date
-from enum import Enum
-
-
-class Sex(str, Enum):
-    SINGLE = 'SINGLE'
-    MARRIED = 'MARRIED'
-    DIVORCED = 'DIVORCED'
-    WIDOWED = 'WIDOWED'
-    CONCUBINE = 'CONCUBINE'
-    UNION = 'UNION'
-    SEPARATION = 'SEPARATION'
 
 
 class CountryModel(BaseModel):
@@ -71,6 +60,18 @@ class PersonGroupMedicalInsurance(BaseModel):
     state: str
 
 
+class VaccineCalendarModel(BaseModel):
+    code: str
+    vaccine_name: str
+    application_age: int
+    measure_unit: str
+
+
+class VaccineAplicationModel(BaseModel):
+    person: Optional[PersonModel]
+    vaccine: Optional[VaccineCalendarModel]
+
+
 # GRAPHENE
 class CountryGrapheneModel(PydanticObjectType):
     class Meta:
@@ -110,3 +111,13 @@ class PersonXGroupGrapheneModel(PydanticObjectType):
 class PersonGroupMedicalInsuranceGrapheneModel(PydanticObjectType):
     class Meta:
         model = PersonGroupMedicalInsurance
+
+
+class VaccineCalendarGrapheneModel(PydanticObjectType):
+    class Meta:
+        model = VaccineCalendarModel
+
+
+class VaccineApplicationGrapheneModel(PydanticObjectType):
+    class Meta:
+        model = VaccineAplicationModel
