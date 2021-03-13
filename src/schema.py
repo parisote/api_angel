@@ -1,5 +1,4 @@
 import graphene
-from sqlalchemy_paginator import Paginator
 
 from src.serializers import (
     CountryGrapheneModel,
@@ -24,7 +23,7 @@ class Query(graphene.ObjectType):
     get_person_by_credential = graphene.List(PersonCredentialGrapheneModel, credential=graphene.NonNull(graphene.String))
 
     get_person_medical_insurance_by_member_id = graphene.List(PersonGroupMedicalInsuranceGrapheneModel, member=graphene.NonNull(graphene.String))
-    get_person_medical_insurance_by_state = graphene.List(PersonGroupMedicalInsuranceGrapheneModel, state=graphene.NonNull(graphene.String))
+    get_person_medical_insurance_by_state = graphene.List(PersonGroupMedicalInsuranceGrapheneModel, state=graphene.NonNull(graphene.String), first=graphene.NonNull(graphene.Int), skip=graphene.NonNull(graphene.Int))
 
     get_vaccine_aplication_by_person_id = graphene.List(VaccineApplicationGrapheneModel, person_id=graphene.NonNull(graphene.Int))
     get_vaccine_aplication_by_code = graphene.List(VaccineApplicationGrapheneModel, code=graphene.NonNull(graphene.String))
@@ -65,8 +64,15 @@ class Query(graphene.ObjectType):
         return q.all()
 
     @staticmethod
-    def resolve_get_person_medical_insurance_by_state(parent, info, state=None):
-        return session.query(PersonGroupMedicalInsurance).filter_by(state=state).all()
+    def resolve_get_person_medical_insurance_by_state(parent, info, state=None, first=None, skip=None):
+        result = session.query(PersonGroupMedicalInsurance).filter_by(state=state).all()
+        if skip:
+            result = result[skip:]
+
+        if first:
+            result = result[:first]
+
+        return result
 
     @staticmethod
     def resolve_get_vaccine_aplication_by_person_id(parent, info, person_id=None):
